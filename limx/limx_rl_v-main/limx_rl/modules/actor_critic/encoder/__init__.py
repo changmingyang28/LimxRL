@@ -1,0 +1,2 @@
+from .proprioceptive_obs_encoder import ProprioceptiveObsEncoder
+from .rnn_encoder import RnnEncoder
