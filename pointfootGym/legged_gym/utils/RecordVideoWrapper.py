@@ -31,10 +31,10 @@ class RecordVideoWrapper:
         self._camera_video_props_are_set = False
 
     def step(self, actions):
-        obs_buf, rew_buf, reset_buf, extras = self._env.step(actions)
+        step_returns = self._env.step(actions)
         if self._is_recording_video:
             self._frames_buf.append(self._get_camera_image())
-        return obs_buf, rew_buf, reset_buf, extras
+        return step_returns
 
     def reset(self):
         return self._env.reset()
