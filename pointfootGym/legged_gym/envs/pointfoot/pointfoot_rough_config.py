@@ -93,6 +93,7 @@ class PointFootRoughCfg(BaseConfig):
         action_scale = 0.5
         # decimation: Number of control action updates @ sim DT per policy DT
         decimation = 4
+        user_torque_limit = 80.0  # [N*m] - matches URDF effort limits
 
     class asset:
         import os
@@ -155,8 +156,8 @@ class PointFootRoughCfg(BaseConfig):
             tracking_lin_vel = 1.0
             tracking_ang_vel = 1.0
             base_height: 1.0
-            tracking_base_height = 1.0  # Set to 0.5 if you want to use dynamic height control
-            orientation = 1.0
+            tracking_base_height = 0.5  # Set to 0.5 if you want to use dynamic height control
+            orientation = -1.0
 
         base_height_target = 0.62
         soft_dof_pos_limit = 0.95  # percentage of urdf limits, values above this limit are penalized
