@@ -32,6 +32,9 @@ import numpy as np
 import os
 from datetime import datetime
 
+# Force set ROBOT_TYPE before importing environments
+os.environ['ROBOT_TYPE'] = 'PF_TRON1A'
+
 import isaacgym
 from legged_gym.envs import *
 from legged_gym.utils import get_args, task_registry
