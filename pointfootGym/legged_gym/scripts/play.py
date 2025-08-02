@@ -34,7 +34,6 @@ import os
 import isaacgym
 from legged_gym.envs import *
 from legged_gym.utils import  get_args, export_policy_as_jit, task_registry, Logger
-from legged_gym.utils.RecordVideoWrapper import RecordVideoWrapper
 from export_policy_as_onnx import *
 
 import numpy as np
@@ -54,7 +53,6 @@ def play(args):
 
     # prepare environment
     env, _ = task_registry.make_env(name=args.task, args=args, env_cfg=env_cfg)
-    env = RecordVideoWrapper(env)
     obs = env.get_observations()
     # load policy
     train_cfg.runner.resume = True
@@ -78,22 +76,9 @@ def play(args):
     camera_direction = np.array(env_cfg.viewer.lookat) - np.array(env_cfg.viewer.pos)
     img_idx = 0
 
-    if args.video:
-        env.set_camera_video_props(frame_size=args.frame_size, camera_offset=args.camera_offset,
-                                   camera_rotation=args.camera_rotation,
-                                   env_idx=args.env_idx_record, actor_idx=args.actor_idx_record, 
-                                   rigid_body_idx=args.rigid_body_idx_record, fps=args.fps)
-        export_path = os.path.join(LEGGED_GYM_ROOT_DIR, 'logs', train_cfg.runner.experiment_name, 'exported')
-        record_frames_dir = os.path.join(export_path, 'videos')
-        env.start_recording_video()
-
     for i in range(10*int(env.max_episode_length)):
         actions = policy(obs.detach())
         obs, _, rews, dones, infos = env.step(actions.detach())
-        if args.video:
-            if i == args.record_length - 1:
-                env.end_and_save_recording_video(record_frames_dir, "output_video.mp4")
-        
         if RECORD_FRAMES:
             if i % 2:
                 filename = os.path.join(LEGGED_GYM_ROOT_DIR, 'logs', train_cfg.runner.experiment_name, 'exported', 'frames', f"{img_idx}.png")

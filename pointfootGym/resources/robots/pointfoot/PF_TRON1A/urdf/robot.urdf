@@ -387,7 +387,7 @@
                 link="abad_R_Link"/>
         <axis
                 xyz="1 0 0"/>
-        <limit effort="80.0" lower="-0.38397" upper="1.39626" velocity="20.0"/>
+        <limit effort="80.0" lower="-1.39626" upper="0.38397" velocity="20.0"/>
     </joint>
     <link
             name="hip_R_Link">

@@ -102,7 +102,7 @@ class PointfootController:
         self.actions = np.zeros(self.actions_size)
         self.observations = np.zeros(self.observations_size)
         self.last_actions = np.zeros(self.actions_size)
-        self.commands = np.array([0.0, 0.0, 0.0])  # 原地踏步：无线速度和角速度
+        self.commands = np.zeros(3)  # command to the robot (e.g., velocity, rotation)
         self.scaled_commands = np.zeros(3)
         self.base_lin_vel = np.zeros(3)  # base linear velocity
         self.base_position = np.zeros(3)  # robot base position
@@ -110,6 +110,7 @@ class PointfootController:
         self.stand_percent = 0  # percentage of time the robot has spent in stand mode
         self.policy_session = None  # ONNX model session for policy inference
         self.joint_num = len(self.joint_names)  # number of joints
+        self.commands = np.zeros(3)
 
         if self.is_wheel_foot:
           self.joint_pos_idxs = config['PointfootCfg']['size']['jointpos_idxs']
@@ -378,14 +379,9 @@ class PointfootController:
         linear_y  = 1.0 if linear_y > 1.0 else (-1.0 if linear_y < -1.0 else linear_y)
         angular_z = 1.0 if angular_z > 1.0 else (-1.0 if angular_z < -1.0 else angular_z)
 
-        # 检查是否有手柄输入，如果没有保持默认的原地踏步命令
-        if abs(linear_x) > 0.1 or abs(linear_y) > 0.1 or abs(angular_z) > 0.1:
-            self.commands[0] = linear_x * 0.5
-            self.commands[1] = linear_y * 0.5
-            self.commands[2] = angular_z * 0.5
-        else:
-            # 保持原地踏步：无线速度和角速度
-            self.commands = np.array([0.0, 0.0, 0.0])
+        self.commands[0] = linear_x * 0.5
+        self.commands[1] = linear_y * 0.5
+        self.commands[2] = angular_z * 0.5
 
     # Callback function for receiving diagnostic data
     def robot_diagnostic_callback(self, diagnostic_value: datatypes.DiagnosticValue):

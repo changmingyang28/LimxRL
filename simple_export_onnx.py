@@ -9,7 +9,7 @@ import copy
 
 def export_model_to_onnx():
     # 模型路径
-    model_path = "/home/cmy/Desktop/LimxRL/pointfootGym/logs/model_21000.pt"
+    model_path = "/home/cmy/Desktop/LimxRL/pointfootMujoco/policy/PF_TRON1A/train_model/model_10000.pt"
     
     # 加载模型
     print(f"Loading model from: {model_path}")
@@ -23,7 +23,7 @@ def export_model_to_onnx():
     
     # 根据pointfoot配置创建网络结构
     # 这些数值来自params.yaml配置文件
-    num_observations = 27  # pointfoot的观测维度 (从params.yaml读取)
+    num_observations = 26  # pointfoot的观测维度 (匹配checkpoint)
     num_actions = 6       # pointfoot的动作维度
     
     # 创建与训练模型完全匹配的Actor网络

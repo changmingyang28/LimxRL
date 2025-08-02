@@ -3,7 +3,7 @@ from legged_gym.envs.base.base_config import BaseConfig
 class PointFootRoughCfg(BaseConfig):
     class env:
         num_envs = 8192
-        num_propriceptive_obs = 26  # updated to include gait info: ang_vel(3) + gravity(3) + dof_pos(6) + dof_vel(6) + actions(6) + clock_sin(1) + clock_cos(1)
+        num_propriceptive_obs = 27
         num_privileged_obs = 148  # if not None a priviledge_obs_buf will be returned by step() (critic obs for assymetric training). None is returned otherwise
         num_actions = 6
         env_spacing = 3.  # not used with heightfields/trimeshes
@@ -93,20 +93,16 @@ class PointFootRoughCfg(BaseConfig):
         action_scale = 0.5
         # decimation: Number of control action updates @ sim DT per policy DT
         decimation = 4
-        user_torque_limit = 80.0  # [N*m] - matches URDF effort limits
 
     class asset:
         import os
         import sys
-        # Set default robot type if environment variable is not set
-        robot_type = os.getenv("ROBOT_TYPE", "PF_TRON1A")
-        
-        # Validate robot type
-        if robot_type not in ["PF_TRON1A"]:
-            print(f"Error: Unsupported ROBOT_TYPE '{robot_type}'. Supported types: PF_TRON1A")
-            print("Using default robot type: PF_TRON1A")
-            robot_type = "PF_TRON1A"
-            
+        robot_type = os.getenv("ROBOT_TYPE")
+
+        # Check if the ROBOT_TYPE environment variable is set, otherwise exit with an error
+        if not robot_type:
+            print("Error: Please set the ROBOT_TYPE using 'export ROBOT_TYPE=<robot_type>'.")
+            sys.exit(1)
         file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pointfoot/' + robot_type + '/urdf/robot.urdf'
         name = robot_type
         foot_name = 'foot'
@@ -139,16 +135,6 @@ class PointFootRoughCfg(BaseConfig):
         push_interval_s = 7
         max_push_vel_xy = 1.
 
-    class gait:
-        num_gait_params = 4
-        resampling_time = 5  # time before gait parameters are changed[s]
-
-        class ranges:
-            frequencies = [1.5, 2.5]
-            offsets = [0, 1]  # offset is hard to learn
-            durations = [0.5, 0.5]
-            swing_height = [0.0, 0.1]
-
     class rewards:
         class scales:
             action_rate = -0.01
@@ -161,29 +147,12 @@ class PointFootRoughCfg(BaseConfig):
             torques = -2.5e-05
             feet_distance = -100
             survival = 1
-            
-            # New tracking rewards
-            tracking_lin_vel = 1.0
-            tracking_ang_vel = 1.0
-            base_height = -2.0
-            tracking_base_height = 0.5  # Set to 0.5 if you want to use dynamic height control
-            orientation = 1.0
-            
-            # Gait-related rewards (from limx project)
-            feet_height = -0.1
-            tracking_contacts_shaped_force = -2.0
-            tracking_contacts_shaped_vel = -2.0
 
         base_height_target = 0.62
         soft_dof_pos_limit = 0.95  # percentage of urdf limits, values above this limit are penalized
         soft_dof_vel_limit = 0.9
         soft_torque_limit = 0.8
         max_contact_force = 200.  # forces above this value are penalized
-        # Gait reward parameters (from limx project)
-        kappa_gait_probs = 0.05
-        gait_force_sigma = 25.0
-        gait_vel_sigma = 0.25
-        gait_height_sigma = 0.005
         only_positive_rewards = False  # if true negative total rewards are clipped at zero (avoids early termination problems)
         min_feet_distance = 0.1
         min_feet_air_time = 0.25

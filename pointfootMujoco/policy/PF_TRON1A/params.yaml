@@ -20,22 +20,22 @@ PointfootCfg:
       knee_R_Joint: 0.0
 
   control:
-    # PD Drive parameters: 匹配训练时的参数
-    stiffness: 40.0    
-    damping: 1.5       
-    action_scale_pos: 0.5  
-    decimation: 4      
-    user_torque_limit: 60 
+    # PD Drive parameters:
+    stiffness: 40.0
+    damping: 2.0
+    action_scale_pos: 0.5
+    decimation: 10
+    user_torque_limit: 60
 
   normalization:
     clip_scales:
-      clip_observations: 100.  
-      clip_actions: 100.       # 严格限制动作幅度，防止过大输出
+      clip_observations: 100.
+      clip_actions: 100.
     obs_scales:
-      lin_vel: 2.0    
-      ang_vel: 0.25   
-      dof_pos: 1.0    
-      dof_vel: 0.05   
+      lin_vel: 2.0
+      ang_vel: 0.25
+      dof_pos: 1.0
+      dof_vel: 0.05
 
   size:
     actions_size: 6
@@ -43,7 +43,7 @@ PointfootCfg:
     commands_size: 3
 
   stand_mode:
-    stand_duration: 0.5  # 站立0.5秒后开始行走
+    stand_duration: 1.0
 
   imu_orientation_offset:
     roll: 0.0

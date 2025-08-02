@@ -38,10 +38,6 @@ from isaacgym import gymutil
 
 from legged_gym import LEGGED_GYM_ROOT_DIR, LEGGED_GYM_ENVS_DIR
 
-
-def tuple_type(values):
-    return tuple(map(int, values.split(',')))
-
 def class_to_dict(obj) -> dict:
     if not  hasattr(obj,"__dict__"):
         return obj
@@ -168,16 +164,6 @@ def get_args():
         {"name": "--num_envs", "type": int, "help": "Number of environments to create. Overrides config file if provided."},
         {"name": "--seed", "type": int, "help": "Random seed. Overrides config file if provided."},
         {"name": "--max_iterations", "type": int, "help": "Maximum number of training iterations. Overrides config file if provided."},
-        {"name": "--video", "action": "store_true", "default": False, "help": "Record video during training"},
-        {"name": "--record_length", "type": int, "default": 200, "help": "The number of steps to record for videos"},
-        {"name": "--record_interval", "type": int, "default": 50, "help": "The number of iterations before each recording"},
-        {"name": "--fps", "type": int, "default": 50, "help": "The fps of recorded videos"},
-        {"name": "--frame_size", "type": str, "default": "1280,720", "help": "The size of recorded frame (width,height)"},
-        {"name": "--camera_offset", "type": str, "default": "0,-2,0", "help": "The offset of the video filming camera (x,y,z)"},
-        {"name": "--camera_rotation", "type": str, "default": "0,0,90", "help": "The rotation of the video filming camera (x,y,z)"},
-        {"name": "--env_idx_record", "type": int, "default": 0, "help": "The env idx to record"},
-        {"name": "--actor_idx_record", "type": int, "default": 0, "help": "The actor idx to record"},
-        {"name": "--rigid_body_idx_record", "type": int, "default": 0, "help": "The rigid_body idx to record"},
     ]
     # parse arguments
     args = gymutil.parse_arguments(
@@ -189,15 +175,6 @@ def get_args():
     args.sim_device = args.sim_device_type
     if args.sim_device=='cuda':
         args.sim_device += f":{args.sim_device_id}"
-    
-    # Parse string parameters to tuples
-    if hasattr(args, 'frame_size') and isinstance(args.frame_size, str):
-        args.frame_size = tuple(map(int, args.frame_size.split(',')))
-    if hasattr(args, 'camera_offset') and isinstance(args.camera_offset, str):
-        args.camera_offset = tuple(map(float, args.camera_offset.split(',')))
-    if hasattr(args, 'camera_rotation') and isinstance(args.camera_rotation, str):
-        args.camera_rotation = tuple(map(float, args.camera_rotation.split(',')))
-    
     return args
 
 def export_policy_as_jit(actor_critic, path):
