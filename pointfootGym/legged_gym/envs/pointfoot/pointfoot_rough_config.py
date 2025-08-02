@@ -148,6 +148,12 @@ class PointFootRoughCfg(BaseConfig):
             feet_distance = -100
             survival = 1
 
+            tracking_lin_vel = 1.0
+            tracking_ang_vel = 1.0
+            base_height: 1.0
+            tracking_base_height = 1.0
+            orientation = 1.0
+
         base_height_target = 0.62
         soft_dof_pos_limit = 0.95  # percentage of urdf limits, values above this limit are penalized
         soft_dof_vel_limit = 0.9
