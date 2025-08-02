@@ -96,7 +96,7 @@ class PointFootRoughCfg(BaseConfig):
 
     class asset:
         import os
-        robot_type = os.getenv("ROBOT_TYPE", "PF_TRON1A")  # Default to PF_TRON1A if not set
+        robot_type = os.getenv("PF_TRON1A")  # Default to PF_TRON1A if not set
         file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pointfoot/' + robot_type + '/urdf/robot.urdf'
         name = robot_type
         foot_name = 'foot'
