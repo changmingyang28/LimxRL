@@ -1200,9 +1200,5 @@ class PointFoot:
 
     # 4. flat orientation
     def _reward_orientation(self):
-        # Penalize non flat base orientation
-        # Extract roll and pitch from quaternion using projected gravity
-        up = torch.tensor([0., 0., 1.], device=self.device, dtype=torch.float)
-        heading_proj = torch.sum(up * self.projected_gravity, dim=1)
-        # Penalize deviation from upright (heading_proj should be close to -1 when upright)
-        return torch.square(heading_proj + 1)
+        # Penalize non flat base orientation (same as limx implementation)
+        return torch.sum(torch.square(self.projected_gravity[:, :2]), dim=1)
