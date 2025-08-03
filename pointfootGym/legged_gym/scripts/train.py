@@ -28,8 +28,11 @@
 #
 # Copyright (c) 2021 ETH Zurich, Nikita Rudin
 
-import numpy as np
+# Force set ROBOT_TYPE before any imports
 import os
+os.environ['ROBOT_TYPE'] = 'PF_TRON1A'
+
+import numpy as np
 from datetime import datetime
 
 import isaacgym
@@ -43,8 +46,5 @@ def train(args):
     ppo_runner.learn(num_learning_iterations=train_cfg.runner.max_iterations, init_at_random_ep_len=True)
 
 if __name__ == '__main__':
-    # Force set ROBOT_TYPE to PF_TRON1A
-    os.environ['ROBOT_TYPE'] = 'PF_TRON1A'
-    
     args = get_args()
     train(args)
