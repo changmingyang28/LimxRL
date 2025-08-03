@@ -96,7 +96,16 @@ class PointFootRoughCfg(BaseConfig):
 
     class asset:
         import os
-        robot_type = "PF_TRON1A"  # Hardcoded robot type
+        import sys
+        # Set default robot type if environment variable is not set
+        robot_type = os.getenv("ROBOT_TYPE", "PF_TRON1A")
+        
+        # Validate robot type
+        if robot_type not in ["PF_TRON1A"]:
+            print(f"Error: Unsupported ROBOT_TYPE '{robot_type}'. Supported types: PF_TRON1A")
+            print("Using default robot type: PF_TRON1A")
+            robot_type = "PF_TRON1A"
+            
         file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pointfoot/' + robot_type + '/urdf/robot.urdf'
         name = robot_type
         foot_name = 'foot'
@@ -141,11 +150,11 @@ class PointFootRoughCfg(BaseConfig):
             torques = -2.5e-05
             feet_distance = -100
             survival = 1
-
+            
+            # New tracking rewards
             tracking_lin_vel = 1.0
-            tracking_ang_vel = 1.0
-            base_height: 1.0
-            tracking_base_height = 1.0
+            tracking_ang_vel = 0.5
+            tracking_base_height = 0.0  # Set to 0.5 if you want to use dynamic height control
             orientation = 1.0
 
         base_height_target = 0.62
