@@ -231,7 +231,7 @@
                 link="knee_L_Link"/>
         <axis
                 xyz="0 -1 0"/>
-        <limit effort="80" lower="-0.872665" upper="1.396263" velocity="20"/>
+        <limit effort="80" lower="-0.872665" upper="1.396263" velocity="50"/>
     </joint>
     <link
             name="foot_L_Link">

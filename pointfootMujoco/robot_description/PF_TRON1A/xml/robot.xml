@@ -71,7 +71,7 @@
         <light directional="true" diffuse=".8 .8 .8" pos="0 0 10" dir="0 0 -10"/>
 
         <body name="base_Link" pos="0 0 0.62">
-            <inertial pos="-0.011761 0.000977 -0.015342" mass="8.557" diaginertia="0.119293 0.125912 0.126021" />
+            <inertial pos="-0.011761 0.0 -0.015342" mass="8.557" diaginertia="0.119293 0.125912 0.126021" />
             <joint type="free" limited="false" damping="0.0000" stiffness="0.0000" armature="0"/>
             <site name="imu" pos="0 0 0"/>
             <geom class="visual" rgba="0.79216 0.81961 0.93333 1" mesh="base_Link" />
@@ -90,7 +90,7 @@
                     <geom name="hip_L_collision" type="cylinder" pos="-0.1 -0.02 -0.14" euler="0 0.53 0" size="0.035 0.09" rgba="0 0 1 0" />
 
                     <body name="knee_L_Link" pos="-0.15 -0.0205 -0.25981">
-                        <inertial pos="0.048005 -0.000016 -0.076168" mass="0.730" diaginertia="0.003391 0.004776 0.001545" />
+                        <inertial pos="0.048005 -0.000016 -0.076168" mass="0.573" diaginertia="0.003391 0.004776 0.001545" />
                         <joint name="knee_L_Joint" pos="0 0 0" axis="0 -1 0" limited="true" range="-0.872665 1.396263" />
                         <geom class="visual" rgba="0.79216 0.81961 0.93333 1" mesh="knee_L_Link" />
                         <geom name="knee_L_collision" type="cylinder" pos="0.078 0 -0.12" euler="0 -0.55 0" size="0.015 0.13" rgba ="0 0 1 0"/>
@@ -109,12 +109,12 @@
 
                 <body name="hip_R_Link" pos="-0.077 -0.0205 0">
                     <inertial pos="-0.030719 0.045451 -0.043281" mass="2.435" diaginertia="0.019181 0.025710 0.010329" />
-                    <joint name="hip_R_Joint" pos="0 0 0" axis="0 -1 0" limited="true" range="-1.39626 1.01229" />
+                    <joint name="hip_R_Joint" pos="0 0 0" axis="0 -1 0" limited="true" range="-1.518436 1.012291" />
                     <geom class="visual" rgba="1 1 1 1" mesh="hip_R_Link" />
-                    <geom name="hip_R_collision" type="cylinder" pos="-0.10 0.025 -0.14" euler="0 0.53 0" size="0.035 0.09" rgba="0 0 1 0" />
+                    <geom name="hip_R_collision" type="cylinder" pos="-0.10 -0.02 -0.14" euler="0 0.53 0" size="0.035 0.09" rgba="0 0 1 0" />
 
                     <body name="knee_R_Link" pos="-0.15 0.0205 -0.25981">
-                        <inertial pos="0.048005 0.000016 -0.076168" mass="0.730" diaginertia="0.003391 0.004776 0.001545" />
+                        <inertial pos="0.048005 0.000016 -0.076168" mass="0.573" diaginertia="0.003391 0.004776 0.001545" />
                         <joint name="knee_R_Joint" pos="0 0 0" axis="0 1 0" limited="true" range="-1.396263 0.872665" />
                         <geom class="visual" rgba="0.79216 0.81961 0.93333 1" mesh="knee_R_Link" />
                         <geom name="knee_R_collision" type="cylinder" pos="0.078 0 -0.12" euler="0 -0.55 0" size="0.015 0.13" rgba ="0 0 1 0"/>
