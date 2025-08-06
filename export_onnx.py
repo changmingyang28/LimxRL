@@ -9,7 +9,7 @@ import copy
 
 def export_model_to_onnx():
     # 模型路径
-    model_path = "/home/cmy/Desktop/LimxRL/pointfootMujoco/policy/PF_TRON1A/policy/model_15000.pt"
+    model_path = "/home/cmy/Desktop/LimxRL/pointfootMujoco/policy/PF_TRON1A/policy/model_3000.pt"
     
     # 加载模型
     print(f"Loading model from: {model_path}")

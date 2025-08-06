@@ -1166,10 +1166,10 @@ class PointFoot:
     rewards:
       scales:
         tracking_lin_vel: 1.0
-        tracking_ang_vel: 1.0
+        tracking_ang_vel: 0.5
         base_height: 1.0
         tracking_base_height: 1.0
-        orientation: 1.0
+        orientation: 5.0
 
     '''
     # 1. linear velocity tracking

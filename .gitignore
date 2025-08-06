@@ -57,3 +57,9 @@ runs
 # other
 *.egg-info
 __pycache__
+
+# Policy model files
+*/policy/*.pt
+*/policy/*.onnx
+*/policy/*.pth
+*/policy/*model*
