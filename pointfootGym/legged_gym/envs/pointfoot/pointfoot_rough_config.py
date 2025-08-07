@@ -154,7 +154,7 @@ class PointFootRoughCfg(BaseConfig):
             # New tracking rewards
             tracking_lin_vel = 1.0
             tracking_ang_vel = 0.5
-            tracking_base_height = 0.5  # Set to 0.5 if you want to use dynamic height control
+            tracking_base_height = 0  # Set to 0.5 if you want to use dynamic height control
             orientation = -5.0
 
         base_height_target = 0.62
