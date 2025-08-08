@@ -50,7 +50,7 @@
     <link
             name="base_Link">
         <inertial>
-            <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+            <origin rpy="0 0 0" xyz="-0.011761 0.000977 -0.015342"/>
             <mass value="8.557"/>
             <inertia ixx="0.119293" ixy="0.000807" ixz="0.040299"
                      iyy="0.125912" iyz="-0.000664" izz="0.126021"/>
@@ -116,7 +116,7 @@
             <origin
                     xyz="0 0 0"
                     rpy="0 0 0"/>
-            <geometry> 
+            <geometry>
                 <mesh
                         filename="meshes/abad_L_Link.STL"/>
             </geometry>
@@ -231,7 +231,7 @@
                 link="knee_L_Link"/>
         <axis
                 xyz="0 -1 0"/>
-        <limit effort="80" lower="-0.872665" upper="1.396263" velocity="50"/>
+        <limit effort="80" lower="-0.872665" upper="1.396263" velocity="20"/>
     </joint>
     <link
             name="foot_L_Link">
