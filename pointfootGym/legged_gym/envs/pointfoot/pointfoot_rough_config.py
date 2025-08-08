@@ -143,7 +143,7 @@ class PointFootRoughCfg(BaseConfig):
             action_rate = -0.01
             ang_vel_xy = -0.05
             base_height = -1.0
-            collision = -50.0
+            collision = -1.0
             dof_acc = -2.5e-07
             feet_air_time = 0.0
             torque_limits = -0.1
@@ -154,8 +154,9 @@ class PointFootRoughCfg(BaseConfig):
             # New tracking rewards
             tracking_lin_vel = 1.0
             tracking_ang_vel = 0.5
-            tracking_base_height = 0  # Set to 0.5 if you want to use dynamic height control
-            orientation = -5.0
+            tracking_base_height = 0 
+            orientation = -10.0
+            roll_pitch = 0.0
 
         base_height_target = 0.62
         soft_dof_pos_limit = 0.95  # percentage of urdf limits, values above this limit are penalized

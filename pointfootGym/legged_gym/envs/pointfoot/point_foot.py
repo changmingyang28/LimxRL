@@ -1167,9 +1167,9 @@ class PointFoot:
       scales:
         tracking_lin_vel: 1.0
         tracking_ang_vel: 0.5
-        base_height: 1.0
-        tracking_base_height: 1.0
-        orientation: 5.0
+        base_height: -1.0
+        tracking_base_height: 0.0
+        orientation: -10.0
 
     '''
     # 1. linear velocity tracking
@@ -1202,3 +1202,10 @@ class PointFoot:
     def _reward_orientation(self):
         # Penalize non flat base orientation (same as limx implementation)
         return torch.sum(torch.square(self.projected_gravity[:, :2]), dim=1)
+
+    def _reward_roll_pitch(self):
+        # Penalize roll and pitch angles directly
+        roll = torch.atan2(self.projected_gravity[:, 1], self.projected_gravity[:, 2])
+        pitch = torch.atan2(-self.projected_gravity[:, 0], 
+                           torch.sqrt(self.projected_gravity[:, 1]**2 + self.projected_gravity[:, 2]**2))
+        return torch.square(roll) + torch.square(pitch)
