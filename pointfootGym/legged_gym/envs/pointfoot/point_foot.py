@@ -1209,3 +1209,19 @@ class PointFoot:
         pitch = torch.atan2(-self.projected_gravity[:, 0], 
                            torch.sqrt(self.projected_gravity[:, 1]**2 + self.projected_gravity[:, 2]**2))
         return torch.square(roll) + torch.square(pitch)
+
+    def _reward_position_tracking(self):
+        # Penalize deviation from initial position when velocity commands are zero (no input)
+        # This prevents drifting during standing/balancing without interfering with walking
+        
+        # Calculate velocity command magnitude (commands[:, :2] are x_vel and y_vel)
+        cmd_vel_magnitude = torch.norm(self.commands[:, :2], dim=1)
+        
+        # Apply position penalty only when velocity command is very small (no input from user)
+        no_input_mask = cmd_vel_magnitude < 0.05  # threshold for considering it as no input
+        
+        # Position error relative to starting position
+        position_error = torch.sum(torch.square(self.root_states[:, :2] - self.env_origins[:, :2]), dim=1)
+        
+        # Only apply penalty when there's no input, zero penalty when walking
+        return position_error * no_input_mask.float()

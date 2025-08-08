@@ -157,6 +157,7 @@ class PointFootRoughCfg(BaseConfig):
             tracking_base_height = 0 
             orientation = -10.0
             roll_pitch = 0.0
+            position_tracking = -2.0  # Penalize position drift to encourage staying in place
 
         base_height_target = 0.62
         soft_dof_pos_limit = 0.95  # percentage of urdf limits, values above this limit are penalized
